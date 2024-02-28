@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Infinite Tape</title>
+
+    <link href="index.css" rel="stylesheet">
+
+    <!--    <script type="module" src="index.js"></script>-->
+</head>
+<body>
+<div class="container">
+    <div id="box">
+        <div id="tape"></div>
+    </div>
+
+    <div class="action-bar">
+        <div id="currentValue"></div>
+        <div id="currentTranslation"></div>
+
+        <label>
+            <span>Insert a number</span>
+            <input id="input" type="text">
+        </label>
+
+        <script>
+            const tapeEl = document.getElementById("tape");
+
+            const elements = [4, 3, 2, 1, 0, 9, 8, 7, 6, 5]
+            const oneItemHeight = 2; // 2rem
+            const fps = 60;
+
+            let currentTransform = -4; // -4rem is ground zero
+            let currentValue = 0;
+
+            let intervalId;
+
+            function createStartList() {
+                elements.forEach(i => {
+                    const boxItemEl = document.createElement("div");
+                    boxItemEl.style.transform = "translateY(" + currentTransform + "rem)";
+                    boxItemEl.className = "box-item";
+
+                    const boxItemTextEl = document.createElement("div");
+                    boxItemEl.textContent = (i).toString();
+                    boxItemEl.appendChild(boxItemTextEl);
+
+                    tapeEl.appendChild(boxItemEl);
+                });
+            }
+
+            function getNumberOnTheInterval(input) {
+                return (input + 10) % 10;
+            }
+
+            function reorderAfterOverflow(centerValue) {
+                console.log("centerValue", centerValue)
+
+                console.log(tapeEl.children[0])
+
+                tapeEl.children[4].textContent = getNumberOnTheInterval(centerValue).toString();
+
+                tapeEl.children[3].textContent = getNumberOnTheInterval(centerValue + 1).toString();
+                tapeEl.children[2].textContent = getNumberOnTheInterval(centerValue + 2).toString();
+                tapeEl.children[1].textContent = getNumberOnTheInterval(centerValue + 3).toString();
+                tapeEl.children[0].textContent = getNumberOnTheInterval(centerValue + 4).toString()
+
+                tapeEl.children[5].textContent = getNumberOnTheInterval(centerValue - 1).toString();
+                tapeEl.children[6].textContent = getNumberOnTheInterval(centerValue - 2).toString();
+                tapeEl.children[7].textContent = getNumberOnTheInterval(centerValue - 3).toString();
+                tapeEl.children[8].textContent = getNumberOnTheInterval(centerValue - 4).toString();
+                tapeEl.children[9].textContent = getNumberOnTheInterval(centerValue - 5).toString();
+
+            }
+
+            let translation = 0;
+            let numberOfIterations = 0;
+
+            function animateInfinite(numberOfInteractionsBeforeReplace, moveBy, moveUp) {
+                const multiplayer = moveUp ? -1 : 1;
+
+                console.log(numberOfInteractionsBeforeReplace, moveBy)
+
+                // Floored for decimal valued results
+                const flooredNumberOfInteractionsBeforeReplace = Math.ceil(numberOfInteractionsBeforeReplace);
+
+                numberOfIterations++;
+
+                // Add on move up
+                if (flooredNumberOfInteractionsBeforeReplace === numberOfIterations && moveUp) {
+                    numberOfIterations = 0;
+
+                    const replaceEl = tapeEl.children[tapeEl.children.length - 1];
+                    const beforeEl = tapeEl.children[0];
+                    tapeEl.removeChild(replaceEl);
+                    tapeEl.insertBefore(replaceEl, beforeEl);
+
+                    translation -= 2;
+
+                    // Add on move down
+                } else if (flooredNumberOfInteractionsBeforeReplace === numberOfIterations && !moveUp) {
+                    numberOfIterations = 0;
+
+                    const replaceEl = tapeEl.children[0];
+                    tapeEl.removeChild(replaceEl);
+                    tapeEl.appendChild(replaceEl);
+
+                    translation += 2;
+                }
+
+                translation -= moveBy * multiplayer;
+
+                currentValue -= moveBy / 2 * multiplayer;
+
+                tapeEl.style.transform = "translateY(" + translation + "rem)";
+
+                document.getElementById("currentValue").textContent = "Current value: " + currentValue.toFixed(2);
+                document.getElementById("currentTranslation").textContent = "Current translation: " + translation.toFixed(2);
+            }
+
+            function animateTo(toValue) {
+                clearInterval(intervalId);
+
+                let startTime = new Date();
+
+                toValue = parseFloat(toValue)
+
+                // Difference between numbers times num of frames
+                let iterations = 0;
+
+                let diff = Math.abs(toValue - currentValue);
+
+                let diffDigit;
+
+                // if (diff > 30 ) {
+                //     console.log("Higher");
+                //     diffDigit = diff % 10
+                //     diff = 30;
+                // }
+
+                const movePerFrame = diff * oneItemHeight / fps;
+                const moveItemIterations = 60 / diff;
+
+                const moveUp = toValue >= currentValue || toValue < 0;
+
+                intervalId = setInterval(() => {
+                    if (iterations >= fps) {
+                        let endTime = new Date();
+
+                        // if (diffDigit !== undefined) {
+                        //     reorderAfterOverflow(diffDigit);
+                        //     console.log("reorder")
+                        // }
+
+                        clearInterval(intervalId);
+                        currentValue = Math.round(currentValue);
+
+                        document.getElementById("currentValue").textContent = "Current value: " + currentValue;
+
+                        let timeElapsed = endTime - startTime;
+                        console.log("timeElapsed", (timeElapsed / 1000).toFixed(2) + "s");
+
+                        numberOfIterations = 0;
+
+                        return;
+                    }
+
+                    animateInfinite(moveItemIterations, movePerFrame, moveUp);
+                    iterations++;
+                }, 100 / fps)
+            }
+
+            createStartList();
+        </script>
+
+        <div class="action-buttons">
+            <button onclick="animateTo(document.getElementById('input').value)">Animate to</button>
+            <button onclick="animateTo(0)">Reset</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

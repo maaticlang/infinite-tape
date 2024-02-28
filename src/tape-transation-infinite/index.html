@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Infinite Tape</title>
+
+    <link href="index.css" rel="stylesheet">
+
+    <!--    <script type="module" src="index.js"></script>-->
+</head>
+<body>
+<div class="container">
+    <div id="box">
+        <div id="tape"></div>
+    </div>
+
+    <div class="action-bar">
+        <div id="currentValue"></div>
+        <div id="currentTranslation"></div>
+
+        <label>
+            <span>Insert a number</span>
+            <input id="input" type="text">
+        </label>
+
+        <script>
+            // TODO Get font size form styles and make id dynamic and not hardcoded
+            const tapeEl = document.getElementById("tape");
+
+            const STARTING_ELEMENTS = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5, -6, -7, -8, -9, -10];
+            const ONE_ITEM_HEIGHT = 2; // 2rem
+            const FPS = 60;
+            const TIME_BETWEEN_TRANSLATION = 500; // ms
+            const INCREMENT_BY = 100;
+            const MAX_DIFF = 200;
+
+            let currentTransform = -14; // 14rem is ground zero
+            let currentValue = 0;
+
+            let intervalId;
+
+            function createStartList() {
+                STARTING_ELEMENTS.forEach(i => {
+                    const boxItemEl = document.createElement("div");
+                    boxItemEl.style.transform = "translateY(" + currentTransform + "rem)";
+                    boxItemEl.className = "box-item";
+
+                    const boxItemTextEl = document.createElement("div");
+                    boxItemEl.textContent = (i * INCREMENT_BY).toString();
+                    boxItemEl.appendChild(boxItemTextEl);
+
+                    tapeEl.appendChild(boxItemEl);
+                });
+            }
+
+            let translation = 0;
+
+            function animateInfinite(moveBy, moveUp) {
+                const multiplayer = moveUp ? -1 : 1;
+
+                translation -= moveBy * multiplayer;
+                currentValue -= moveBy / 2 * multiplayer;
+
+                // Jumps to lower limit
+                if (translation >= 10 && moveUp) {
+                    translation += -20;
+                    calculateNextTapeState(currentValue, moveUp);
+                }
+
+                // Jumps to upper limit
+                if (translation <= -10 && !moveUp) {
+                    translation += 20;
+                    calculateNextTapeState(currentValue, moveUp);
+                }
+
+                // Make transformations on html elements
+                tapeEl.style.transform = "translateY(" + translation + "rem)";
+                document.getElementById("currentValue").textContent = "Current value: " + (currentValue * 10).toFixed(2);
+            }
+
+            function calculateNextTapeState(currentValue, moveUp) {
+                if (moveUp) {
+                    const movedFromItemEl = document.getElementById("tape").children[4]; // Border item on the top
+                    const movedToItemEl = document.getElementById("tape").children[14]; // Border item on the bottom
+                    movedToItemEl.textContent = movedFromItemEl.textContent;
+
+                    for (let i = 15; i < STARTING_ELEMENTS.length; i++) {
+                        const previousValue = Number.parseInt(document.getElementById("tape").children[i - 1].textContent);
+                        document.getElementById("tape").children[i].textContent = (previousValue - INCREMENT_BY).toString();
+                    }
+
+                    for (let i = 13; i >= 0; i--) {
+                        const previousValue = Number.parseInt(document.getElementById("tape").children[i + 1].textContent);
+                        document.getElementById("tape").children[i].textContent = (previousValue + INCREMENT_BY).toString();
+                    }
+
+                    return;
+                }
+
+                const movedFromItemEl = document.getElementById("tape").children[14]; // Border item on the top
+                const movedToItemEl = document.getElementById("tape").children[4]; // Border item on the bottom
+                movedToItemEl.textContent = movedFromItemEl.textContent;
+
+                for (let i = 5; i < STARTING_ELEMENTS.length; i++) {
+                    const previousValue = Number.parseInt(document.getElementById("tape").children[i - 1].textContent);
+                    document.getElementById("tape").children[i].textContent = (previousValue - INCREMENT_BY).toString();
+                }
+
+                for (let i = 3; i >= 0; i--) {
+                    const previousValue = Number.parseInt(document.getElementById("tape").children[i + 1].textContent);
+                    document.getElementById("tape").children[i].textContent = (previousValue + INCREMENT_BY).toString();
+                }
+            }
+
+            function calculateOverflowState(currentValue) {
+                const roundedCurrentValue = Math.round(currentValue) * INCREMENT_BY;
+                const position = roundedCurrentValue % 100 / 10;
+                let index = 10 - position - 1;
+
+                // Move to bottom
+                if (index < 5) index += 10;
+
+                document.getElementById("tape").children[index].textContent = roundedCurrentValue.toString()
+                const startValue = roundedCurrentValue + index * INCREMENT_BY;
+
+                STARTING_ELEMENTS.forEach((e, index) => {
+                    document.getElementById("tape").children[index].textContent = (startValue - index * INCREMENT_BY).toString();
+                })
+            }
+
+            function animateTo(toValue) {
+                clearInterval(intervalId);
+
+                let overflowDigit = undefined;
+                let startTime = new Date();
+                let iterations = 0; // Difference between numbers times num of frames
+                let diff = Math.abs(toValue - currentValue);
+
+                toValue = Number.parseFloat(toValue);
+                toValue = Number.parseFloat(toValue.toFixed(2))
+
+                if (diff > MAX_DIFF) {
+                    overflowDigit = (toValue % 10);
+                    diff = MAX_DIFF;
+                }
+
+                const movePerFrame = diff * ONE_ITEM_HEIGHT / FPS;
+                const moveUp = toValue >= currentValue || toValue < 0;
+
+                intervalId = setInterval(() => {
+                    // End of the iteration
+                    if (iterations >= FPS) {
+                        clearInterval(intervalId);
+
+                        let endTime = new Date();
+
+                        currentValue = Number.parseFloat(currentValue.toFixed(2));
+
+                        if (overflowDigit !== undefined) {
+                            translation = overflowDigit * 2;
+
+                            if (overflowDigit >= 5) translation -= 20;
+                            currentValue = Number.parseFloat(toValue.toFixed(2));
+
+                            tapeEl.style.transform = "translateY(" + translation + "rem)";
+
+                            calculateOverflowState(currentValue);
+                        }
+                        overflowDigit = undefined;
+
+                        document.getElementById("currentValue").textContent = "Current value: " + (currentValue * 10).toFixed(2);
+
+                        let timeElapsed = endTime - startTime;
+                        console.log("timeElapsed", (timeElapsed / 1000).toFixed(2) + "s");
+                        return;
+                    }
+
+                    animateInfinite(movePerFrame, moveUp);
+                    iterations++;
+                }, TIME_BETWEEN_TRANSLATION / FPS)
+            }
+
+            createStartList();
+        </script>
+
+        <div class="action-buttons">
+            <button onclick="animateTo(document.getElementById('input').value / INCREMENT_BY)">Animate to</button>
+            <button onclick="animateTo(0)">Reset</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
