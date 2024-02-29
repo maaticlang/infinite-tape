@@ -3,3 +3,5 @@ src/
 test/
 *.log
 dist/examples
+tsconfig.json
+package.json
