@@ -23,12 +23,12 @@
         }
 
         const infiniteTape = new InfiniteTape("tape", "box", configuration);
-
-        infiniteTape.animateTo(100)
-
-        setTimeout(() => {
-            infiniteTape.animateTo(50)
-        }, 2000)
+        //
+        // infiniteTape.animateTo(50);
+        //
+        // setTimeout(() => {
+        //     infiniteTape.animateTo(-160)
+        // }, 2000);
 
         // setInterval(() => {
         //     const rand = Math.random() * 50;
@@ -36,13 +36,15 @@
         //     infiniteTape.animateTo(rand);
         // }, 2000)
 
-        // document.addEventListener("infiniteTapeCurrentValue", (e) => {
-        //     console.log(e.detail.value)
-        // })
+        document.addEventListener("infiniteTapeCurrentValue", (e) => {
+            document.getElementById("value").textContent = e.detail.value.toFixed(2);
+        });
     </script>
 
     <div id="box">
-        <div id="tape"></div>
+        <div id="tape" style="background: lightcoral"></div>
     </div>
+
+    <div id="value"></div>
 </body>
 </html>

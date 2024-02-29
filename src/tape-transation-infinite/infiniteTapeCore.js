@@ -56,7 +56,11 @@ class InfiniteTape {
         const minTimeOnTranslation = 250; // 250ms
         if (configuration.timeOfTranslation < minTimeOnTranslation) configuration.timeOfTranslation = minTimeOnTranslation;
 
+        if (configuration.utils.unit === "px") configuration.utils.unit = "em";
+
         this.configuration = configuration;
+
+        this.wrapperEl.style.fontSize = this.configuration.utils.textSize + "px";
     }
 
     #createStartList() {
@@ -81,17 +85,16 @@ class InfiniteTape {
             boxItemEl.style.display = "flex";
             boxItemEl.style.justifyContent = "center";
             boxItemEl.style.alignItems = "center";
+            boxItemEl.style.fontSize = "1" + this.configuration.utils.unit;
 
-            const boxItemTextEl = document.createElement("div");
             boxItemEl.textContent = (i * this.configuration.incrementBy).toString();
-            boxItemEl.appendChild(boxItemTextEl);
 
             this.tapeEl.appendChild(boxItemEl);
         });
     }
 
     #animateInfinite(moveBy, moveUp) {
-        const multiplayer = moveUp ? -1 : 1;
+        const multiplayer = -1; //!moveUp ? -1 : 1;
 
         this.translation -= moveBy * multiplayer;
         this.currentValue -= moveBy / 2 * multiplayer;
@@ -116,6 +119,8 @@ class InfiniteTape {
     }
 
     #calculateNextTapeState(currentValue, moveUp) {
+        console.log(currentValue, moveUp)
+
         if (moveUp) {
             const movedFromItemEl = this.tapeEl.children[4]; // Border item on the top
             const movedToItemEl = this.tapeEl.children[14]; // Border item on the bottom
@@ -175,9 +180,9 @@ class InfiniteTape {
 
         let diff = Math.abs(toValue - this.currentValue);
 
-        // if (toValue < 0) diff *= -1;
+        if (toValue < 0) diff *= -1;
 
-        toValue = Number.parseFloat(toValue.toFixed(2))
+        toValue = Number.parseFloat(toValue.toFixed(2));
 
         if (diff > this.MAX_DIFF) {
             overflowDigit = (toValue % 10);
@@ -185,7 +190,7 @@ class InfiniteTape {
         }
 
         const movePerFrame = diff * this.configuration.itemHeight / this.FPS;
-        const moveUp = toValue >= this.currentValue || toValue < 0;
+        const moveUp = toValue >= this.currentValue;
 
         this.intervalId = setInterval(() => {
             // End of the iteration
@@ -213,7 +218,7 @@ class InfiniteTape {
 
             this.#animateInfinite(movePerFrame, moveUp);
             iterations++;
-        }, this.configuration.timeOfTranslation / this.FPS)
+        }, this.configuration.timeOfTranslation / this.FPS);
     }
 }
 
