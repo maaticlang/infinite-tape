@@ -1,3 +1,4 @@
-import InfiniteTape from './core/infiniteTapeCore';
+import InfiniteTape from './core/infiniteTapeCore.js';
+import OdometerTape from './core/odometerCore.js';
 
-export default InfiniteTape;
+export {InfiniteTape, OdometerTape};

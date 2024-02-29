@@ -15,7 +15,7 @@
     </div>
 
     <div class="action-bar">
-        <div id="currentValue"></div>
+        <div id="infiniteTapeCurrentValue"></div>
         <div id="currentTranslation"></div>
 
         <label>
@@ -73,7 +73,7 @@
 
                 // Make transformations on html elements
                 tapeEl.style.transform = "translateY(" + translation + "rem)";
-                document.getElementById("currentValue").textContent = "Current value: " + currentValue.toFixed(2);
+                document.getElementById("infiniteTapeCurrentValue").textContent = "Current value: " + currentValue.toFixed(2);
                 // document.getElementById("currentTranslation").textContent = "Current translation: " + translation.toFixed(2);
             }
 
@@ -115,7 +115,7 @@
                         }
                         overflowDigit = undefined;
 
-                        document.getElementById("currentValue").textContent = "Current value: " + currentValue;
+                        document.getElementById("infiniteTapeCurrentValue").textContent = "Current value: " + currentValue;
 
                         let timeElapsed = endTime - startTime;
                         console.log("timeElapsed", (timeElapsed / 1000).toFixed(2) + "s");
