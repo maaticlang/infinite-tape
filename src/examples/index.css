@@ -10,7 +10,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 3rem;
+    gap: 10%;
 
     font-family: "Roboto", sans-serif;
 }
@@ -28,6 +28,13 @@ body {
 .box-item {
     color: white;
     font-weight: 600;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    text-transform: capitalize;
 }
 
 /* Actions */

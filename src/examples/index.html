@@ -36,6 +36,8 @@
     });
 
     function odometerAnimateClick() {
+        if ( document.getElementById("odometerInput").value === "") return;
+
         clearInterval(odometerIntervalId);
 
         odometerTape.animateTo(Number.parseFloat(document.getElementById("odometerInput").value));
@@ -92,6 +94,8 @@
     });
 
     function animateClick() {
+        if ( document.getElementById("infiniteTapeInput").value === "") return;
+
         clearInterval(infiniteTapeIntervalId);
 
         infiniteTape.animateTo(Number.parseFloat(document.getElementById("infiniteTapeInput").value));
@@ -127,6 +131,10 @@
 
 <div class="container">
     <div class="content">
+        <div class="title">
+            Infinite Tape
+        </div>
+
         <div id="infiniteTapeBox" class="box">
             <div id="infiniteTapeTape" class="tape"></div>
         </div>
@@ -148,6 +156,10 @@
     </div>
 
     <div class="content">
+        <div class="title">
+            Odometer
+        </div>
+
         <div id="odometerTapeBox" class="box">
             <div id="odometerTapeTape" class="tape"></div>
         </div>
