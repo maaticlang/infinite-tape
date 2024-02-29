@@ -6,7 +6,7 @@
 
     <link href="index.css" rel="stylesheet">
 
-    <!--    <script type="module" src="index.js"></script>-->
+    <!--    <script type="module" src="index.ts"></script>-->
 </head>
 <body>
 <div class="container">
@@ -129,14 +129,6 @@
                 let iterations = 0;
 
                 let diff = Math.abs(toValue - currentValue);
-
-                let diffDigit;
-
-                // if (diff > 30 ) {
-                //     console.log("Higher");
-                //     diffDigit = diff % 10
-                //     diff = 30;
-                // }
 
                 const movePerFrame = diff * oneItemHeight / fps;
                 const moveItemIterations = 60 / diff;

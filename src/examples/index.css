@@ -1,0 +1,32 @@
+body {
+    margin: 0;
+    background: #fefefe;
+
+}
+
+.container {
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+
+    font-family: "Roboto", sans-serif;
+}
+
+#infiniteTapeBox {
+    background: #609af8;
+    border-radius: 0.3rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
+}
+
+#currentValue {
+    font-weight: 500;
+}
+
+.box-item {
+    color: white;
+    font-weight: 500;
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Infinite Tape Demo</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<script type="module">
+    import InfiniteTape from "../../../node_modules/infinite-tape/dist/core/infiniteTapeCore.js";
+
+    const configuration = {
+        itemHeight: 2,
+        utils: {
+            unit: 'rem',
+            textSize: 20,
+        },
+        box: {
+            height: 10,
+            width: 2.5,
+        },
+        timeOfTranslation: 1000,
+        incrementBy: 10,
+    }
+
+    const infiniteTape = new InfiniteTape("InfiniteTapeTape", "infiniteTapeBox", configuration);
+
+    const rand = Math.random() * 300;
+    infiniteTape.animateTo(rand);
+
+    setInterval(() => {
+        const rand = Math.random() * 300;
+        infiniteTape.animateTo(rand);
+    }, 2000)
+
+    document.addEventListener("infiniteTapeCurrentValue", (e) => {
+        document.getElementById("currentValue").textContent = e.detail.value.toFixed(2);
+    });
+</script>
+
+<div class="container">
+    <div id="infiniteTapeBox">
+        <div id="InfiniteTapeTape"></div>
+    </div>
+
+    <div id="currentValue"></div>
+</div>
+
+</body>
+</html>
