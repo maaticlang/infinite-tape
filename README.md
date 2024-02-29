@@ -6,6 +6,8 @@ The Infinite Tape module represents a virtual tape, which can theoretically anim
 
 On the other hand, the Odometer Tape module is designed to represent values in a way similar to the mechanical odometer device. It provides efficient digit management and rolling animation capabilities.
 
+![Infinite Tape](/assets/infinite-tape.png)
+
 ## Custom Software Development and Consulting
 
 If you find this project helpful and need assistance with a custom job, or if you require a more tailored solution for your specific use case, I would be glad to help!
