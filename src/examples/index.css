@@ -28,5 +28,62 @@ body {
 
 .box-item {
     color: white;
+    font-weight: 600;
+}
+
+/* Actions */
+
+.input-label {
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+input {
+    border: 1px solid #bdbdbd;
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+
+    font-size: 1rem;
     font-weight: 500;
+}
+
+.action-buttons {
+    margin-top: 0.25rem;
+
+    display: flex;
+    gap: 0.25rem;
+}
+
+.action-buttons > button {
+    transition: 0.1s ease;
+
+    width: 100%;
+
+    padding: 0.5rem;
+
+    background: #609af8;
+    color: white;
+
+    font-weight: 600;
+    font-size: 0.9rem;
+
+    border: none;
+    border-radius: 0.25rem;
+}
+
+.action-buttons > button:hover {
+    transition: 0.1s ease;
+
+    cursor: pointer;
+
+    background: #3b82f6;
+}
+
+.reset-button {
+    background: lightcoral !important;
+}
+
+.reset-button:active, .reset-button:hover {
+    transition: 0.1s ease;
+    background: coral !important;
 }

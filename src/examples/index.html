@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <title>Infinite Tape Demo</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
 <script type="module">
-    import InfiniteTape from "../../../node_modules/infinite-tape/dist/core/infiniteTapeCore.js";
+    import InfiniteTape from "../../dist/core/infiniteTapeCore.js";
 
     const configuration = {
         itemHeight: 2,
@@ -19,7 +20,7 @@
         },
         box: {
             height: 10,
-            width: 2.5,
+            width: 3,
         },
         timeOfTranslation: 1000,
         incrementBy: 10,
@@ -27,17 +28,41 @@
 
     const infiniteTape = new InfiniteTape("InfiniteTapeTape", "infiniteTapeBox", configuration);
 
-    const rand = Math.random() * 300;
-    infiniteTape.animateTo(rand);
-
-    setInterval(() => {
-        const rand = Math.random() * 300;
-        infiniteTape.animateTo(rand);
-    }, 2000)
+    let intervalId = 0;
 
     document.addEventListener("infiniteTapeCurrentValue", (e) => {
         document.getElementById("currentValue").textContent = e.detail.value.toFixed(2);
     });
+
+    function animateClick() {
+        clearInterval(intervalId);
+
+        infiniteTape.animateTo(Number.parseFloat(document.getElementById("input").value));
+    }
+    window.animateClick = animateClick;
+
+    function randomClick() {
+        clearInterval(intervalId);
+        document.getElementById("input").value = ""
+
+        const rand = Math.random() * 300;
+        infiniteTape.animateTo(rand);
+
+        intervalId = setInterval(() => {
+            const rand = Math.random() * 300;
+            infiniteTape.animateTo(rand);
+        }, 2000)
+    }
+    window.randomClick = randomClick;
+
+    function resetClick() {
+        clearInterval(intervalId);
+
+        infiniteTape.animateTo(0);
+        document.getElementById("input").value = ""
+    }
+    window.resetClick = resetClick;
+
 </script>
 
 <div class="container">
@@ -45,7 +70,20 @@
         <div id="InfiniteTapeTape"></div>
     </div>
 
-    <div id="currentValue"></div>
+    <div id="currentValue">0</div>
+
+    <div class="actions">
+        <div class="input-label">Input a number</div>
+        <label>
+            <input id="input">
+        </label>
+
+        <div class="action-buttons">
+            <button onclick="animateClick()">Animate</button>
+            <button onclick="randomClick()">Random</button>
+            <button class="reset-button" onclick="resetClick()">Reset</button>
+        </div>
+    </div>
 </div>
 
 </body>
