@@ -1,6 +1,6 @@
 {
   "name": "infinite-tape",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "The package provides full implementation of a simulated infinite tape, allowing complex read and write operations. It's ideal for developers working on theoretical computer science projects, automated testing and visualization of tape-based operations.",
   "main": "dist/index.js",
   "scripts": {
