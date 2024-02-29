@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Infinite Tape Demo</title>
+</head>
+<body>
+    <script type="module">
+        import InfiniteTape from "./infiniteTapeCore.js";
+
+        const configuration = {
+            itemHeight: 2,
+            utils: {
+                unit: 'rem',
+                textSize: 16,
+            },
+            box: {
+                height: 10,
+                width: 2,
+            },
+            timeOfTranslation: 1000,
+            incrementBy: 10,
+        }
+
+        const infiniteTape = new InfiniteTape("tape", "box", configuration);
+
+        infiniteTape.animateTo(100)
+
+        setTimeout(() => {
+            infiniteTape.animateTo(50)
+        }, 2000)
+
+        // setInterval(() => {
+        //     const rand = Math.random() * 50;
+        //     console.log("animate to", rand)
+        //     infiniteTape.animateTo(rand);
+        // }, 2000)
+
+        // document.addEventListener("infiniteTapeCurrentValue", (e) => {
+        //     console.log(e.detail.value)
+        // })
+    </script>
+
+    <div id="box">
+        <div id="tape"></div>
+    </div>
+</body>
+</html>
