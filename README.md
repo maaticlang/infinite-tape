@@ -17,8 +17,17 @@ I offer consulting and software development services in TypeScript, JavaScript, 
 - Professional consulting and advice tailored to your needs
 - And much more!
 
-[Linkedin](https://www.linkedin.com/in/matic-lang-54ab27240/)
-[GitHub](https://github.com/maaticlang/infinite-tape)
+Contact me at:
+- [Linkedin](https://www.linkedin.com/in/matic-lang-54ab27240/)
+- [GitHub](https://github.com/maaticlang/infinite-tape)
+
+## Support the Project
+
+If you find this project useful and want to show some appreciation, consider supporting me:
+
+- Contribute through [PayPal](https://www.paypal.com/donate/?hosted_button_id=FCQWFWXQY6RCY)
+
+Your support helps me maintain and improve this project. Thank you!
 
 ## Installation
 
