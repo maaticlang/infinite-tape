@@ -5,3 +5,4 @@ test/
 dist/examples
 tsconfig.json
 package.json
+.idea
