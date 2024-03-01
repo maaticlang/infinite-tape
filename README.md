@@ -57,11 +57,7 @@ const infiniteTapeConfiguration = {
         itemHeight: 2,
         utils: {
             unit: 'rem', // rem | em
-            textSize: 20, // px
-        },
-        box: {
-            height: 10,
-            width: 3,
+            textSize: 16, // px
         },
         timeOfTranslation: 1000, // ms
         incrementBy: 10,
@@ -88,7 +84,7 @@ document.addEventListener("infiniteTapeCurrentValue", (e) => {
     });
 ```
 
-6. Add two `div` elements with desired ids, which need to be passed to class constructor.
+6. Add two `div` elements with desired ids, which need to be passed to class constructor. You must set `width` and `height` to the outer div. Note that `height` is limited to `9 * height of one box item`, if you use height measures such as `%, vh` be careful because the inner tape can overflow. If height does not exceed the limited value you can use `%, vh` with ease.
 
 ```
 <div id="infiniteTapeBox">
@@ -97,6 +93,8 @@ document.addEventListener("infiniteTapeCurrentValue", (e) => {
 ```
 
 ### 0️⃣ Odometer
+
+Odometer currently does not support negative values.
 
 1. Odometer is imported directly from package root path.
 
@@ -111,11 +109,7 @@ const odometerConfiguration = {
         itemHeight: 2,
         utils: {
             unit: 'rem', // rem | em
-            textSize: 20, // px
-        },
-        box: {
-            height: 10,
-            width: 3,
+            textSize: 16, // px
         },
         timeOfTranslation: 1000, // ms
     }
@@ -141,7 +135,7 @@ document.addEventListener("odometerCurrentValue", (e) => {
     });
 ```
 
-6. Add two `div` elements with desired ids, which need to be passed to class constructor.
+6. Add two `div` elements with desired ids, which need to be passed to class constructor. You must set `width` and `height` to the outer div. Note that `height` is limited to `9 * height of one box item`, if you use height measures such as `%, vh` be careful because the inner tape can overflow. If height does not exceed the limited value you can use `%, vh` with ease.
 
 ```
 <div id="odometerTapeBox">
@@ -151,9 +145,9 @@ document.addEventListener("odometerCurrentValue", (e) => {
 
 ## 🎨Styling
 
-Styling the elements is achived with overridding css ids and classes. There are 3 major elements to override:
+Styling the elements is achieved with overriding css ids and classes. There are 3 major elements to override:
 - **box**
 - **tape**
 - **tape item** can be overwritten with class `box-item`
 
-The first two elements are overwritten with your desired ids which you had to set at inicialization of the elements.
+The first two elements are overwritten with your desired ids which you had to set at initialization of the elements.
