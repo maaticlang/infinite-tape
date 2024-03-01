@@ -17,10 +17,6 @@ class OdometerTape {
 
     private configuration: TOdometerConfiguration = {
         itemHeight: 2,
-        box: {
-            height: 10,
-            width: 2,
-        },
         utils: {
             textSize: 16,
             unit: 'rem',
@@ -63,12 +59,6 @@ class OdometerTape {
         // Adjust item height configuration
         if (configuration.itemHeight < 0) configuration.itemHeight = 0;
 
-        // Adjust box configuration
-        const maxItemHeight = configuration.itemHeight * 11;
-        if (configuration.box.height < 0) configuration.box.height = 0;
-        if (configuration.box.height > maxItemHeight) configuration.box.height = maxItemHeight;
-        if (configuration.box.width < 0) configuration.box.width = 0;
-
         // Adjust time of translation configuration
         const minTimeOnTranslation = 250; // 250ms
         if (configuration.timeOfTranslation < minTimeOnTranslation) configuration.timeOfTranslation = minTimeOnTranslation;
@@ -96,8 +86,10 @@ class OdometerTape {
         this.tapeEl.style.display = "flex";
         this.tapeEl.style.flexDirection = "column";
 
-        this.wrapperEl.style.height = this.configuration.box.height + this.configuration.utils.unit;
-        this.wrapperEl.style.width = this.configuration.box.width + this.configuration.utils.unit;
+        // Calculates max height and sets it if it overflows from max value
+        if (this.wrapperEl.clientHeight / this.configuration.utils.textSize > this.configuration.itemHeight * 9) {
+            this.wrapperEl.style.height = this.configuration.itemHeight * 9 + this.configuration.utils.unit;
+        }
         this.wrapperEl.style.overflow = "hidden";
         this.wrapperEl.style.display = "flex";
         this.wrapperEl.style.flexDirection = "column";
