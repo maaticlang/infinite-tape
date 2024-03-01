@@ -1,36 +1,37 @@
-# Infinite Tape
+# :infinity: Infinite Tape
 
-## Introduction
+## 👋 Introduction
 
 The Infinite Tape module represents a virtual tape, which can theoretically animate to infinity. 
 
-On the other hand, the Odometer Tape module is designed to represent values in a way similar to the mechanical odometer device. It provides efficient digit management and rolling animation capabilities.
+On the other hand, the Odometer Tape module is designed to represent values in a way similar to the mechanical odometer device. It provides efficient digit management and rolling animation capabilities. :recycle: 
 
 ![Infinite Tape](/assets/infinite-tape.png)
 
-## Custom Software Development and Consulting
+**Example page** can be accesed with this [link](https://maaticlang.github.io/infinite-tape/).
+
+## :wrench: Custom Software Development and Consulting
 
 If you find this project helpful and need assistance with a custom job, or if you require a more tailored solution for your specific use case, I would be glad to help!
 I offer consulting and software development services in TypeScript, JavaScript, and a variety of other technologies. Here's what you can expect:
 
-- Developing complex, robust, and secure software applications
-- Customizing and optimizing existing code
-- Professional consulting and advice tailored to your needs
-- And much more!
+- :gear: Developing complex, robust, and secure software applications
+- :hammer_and_wrench: Customizing and optimizing existing code
+- 📖 Professional consulting and advice tailored to your needs
+- :stars: And much more!
 
 Contact me at:
 - [Linkedin](https://www.linkedin.com/in/matic-lang-54ab27240/)
-- [GitHub](https://github.com/maaticlang/infinite-tape)
 
-## Support the Project
+## :blue_heart: Support the Project
 
 If you find this project useful and want to show some appreciation, consider supporting me:
 
-<a target="_blank" rel="noopener noreferrer" href="https://www.paypal.com/donate/?hosted_button_id=FCQWFWXQY6RCY"><img src="/assets/paypal-donate.png" alt="Image description" style="max-width: 150px;"></a>
+<a target="_blank" rel="noopener noreferrer" href="https://www.paypal.com/donate/?hosted_button_id=FCQWFWXQY6RCY"><img src="/assets/paypal-donate.png" alt="Image description" width="150"></a>
 
 Your support helps me maintain and improve this project. Thank you!
 
-## Installation
+## :cd: Installation
 
 Using npm:
 
@@ -39,9 +40,9 @@ npm i -g npm
 npm i --save infinite-tape
 ```
 
-## Usage
+## :hammer_and_wrench: Usage
 
-### Infinite Tape
+### ♾️ Infinite Tape
 
 1. Infinite Tape is imported directly from package root path.
 
@@ -55,7 +56,7 @@ import {InfiniteTape} from "infinite-tape";
 const infiniteTapeConfiguration = {
         itemHeight: 2,
         utils: {
-            unit: 'rem',
+            unit: 'rem', // rem | em
             textSize: 20, // px
         },
         box: {
@@ -95,7 +96,7 @@ document.addEventListener("infiniteTapeCurrentValue", (e) => {
 </div>
 ```
 
-### Odometer
+### 0️⃣ Odometer
 
 1. Odometer is imported directly from package root path.
 
@@ -109,7 +110,7 @@ import {OdometerTape} from "infinite-tape";
 const odometerConfiguration = {
         itemHeight: 2,
         utils: {
-            unit: 'rem',
+            unit: 'rem', // rem | em
             textSize: 20, // px
         },
         box: {
@@ -147,3 +148,12 @@ document.addEventListener("odometerCurrentValue", (e) => {
     <div id="odometerTapeTape"></div>
 </div>
 ```
+
+## 🎨Styling
+
+Styling the elements is achived with overridding css ids and classes. There are 3 major elements to override:
+- **box**
+- **tape**
+- **tape item** can be overwritten with class `box-item`
+
+The first two elements are overwritten with your desired ids which you had to set at inicialization of the elements.
