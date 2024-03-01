@@ -11,7 +11,6 @@ On the other hand, the Odometer Tape module is designed to represent values in a
 ## Custom Software Development and Consulting
 
 If you find this project helpful and need assistance with a custom job, or if you require a more tailored solution for your specific use case, I would be glad to help!
-
 I offer consulting and software development services in TypeScript, JavaScript, and a variety of other technologies. Here's what you can expect:
 
 - Developing complex, robust, and secure software applications
@@ -27,7 +26,7 @@ Contact me at:
 
 If you find this project useful and want to show some appreciation, consider supporting me:
 
-- Contribute through [PayPal](https://www.paypal.com/donate/?hosted_button_id=FCQWFWXQY6RCY)
+<a target="_blank" rel="noopener noreferrer" href="https://www.paypal.com/donate/?hosted_button_id=FCQWFWXQY6RCY"><img src="/assets/paypal-donate.png" alt="Image description" style="max-width: 150px;"></a>
 
 Your support helps me maintain and improve this project. Thank you!
 
