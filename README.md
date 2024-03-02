@@ -143,7 +143,7 @@ document.addEventListener("odometerCurrentValue", (e) => {
 </div>
 ```
 
-## 🎨Styling
+## 🎨 Styling
 
 Styling the elements is achieved with overriding css ids and classes. There are 3 major elements to override:
 - **box**

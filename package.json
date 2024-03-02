@@ -1,6 +1,6 @@
 {
   "name": "infinite-tape",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "The package provides full implementation of a simulated infinite tape, allowing complex read and write operations. It's ideal for developers working on theoretical computer science projects, automated testing and visualization of tape-based operations.",
   "main": "dist/index.js",
   "scripts": {
@@ -12,7 +12,11 @@
   "keywords": [
     "animation",
     "infinite",
+    "infinity",
     "odometer",
+    "endless",
+    "rotating",
+    "revolving",
     "tape"
   ],
   "repository": "https://github.com/maaticlang/infinite-tape",
